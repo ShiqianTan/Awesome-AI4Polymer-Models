@@ -60,6 +60,7 @@ def render():
     counts = Counter(m["category"] for m in models)
     readme = [
         "# Awesome-AI4Polymer-Models\n",
+        "![AI for polymers: unified representation, property prediction, structure generation, and goal-driven design](assets/repository-cover.png)\n",
         "> Representative AI models for polymer property prediction, inverse design, and unified modeling.\n",
         "聚合物领域代表性 AI 模型索引：以用户提供的 Table 1 图片为初始范围，补充论文、作者代码与模型发布入口。"
         "本版收录 **%d 个模型**，按原图的主要下游能力分组。\n" % len(models),

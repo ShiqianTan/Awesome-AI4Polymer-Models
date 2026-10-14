@@ -1,0 +1,821 @@
+{
+  "schema_version": "1.0",
+  "checked_on": "2026-10-14",
+  "source": {
+    "type": "user_supplied_table_image",
+    "caption": "Summary of representative polymer foundation models (PFMs), grouped by primary downstream capabilities",
+    "bibliographic_identity": null,
+    "reference_numbers_resolved": false,
+    "note": "The screenshot does not include the parent article or reference list. source_table fields are transcriptions; paper identities and resource links are independently curated. Null means a dash in the table, not absence of pretraining."
+  },
+  "models": [
+    {
+      "id": "polybert",
+      "name": "polyBERT",
+      "category": "property_prediction",
+      "scope": "polymer",
+      "source_table": {
+        "year": 2023,
+        "application": "Multidomain prediction [B]",
+        "modality": [
+          "Sequence"
+        ],
+        "architecture": "DeBERTa",
+        "pretraining_data": "Augmented from 13k real polymers (100M)",
+        "pretraining_method": "GL"
+      },
+      "paper": {
+        "title": "polyBERT: a chemical language model to enable fully machine-driven ultrafast polymer informatics",
+        "url": "https://www.nature.com/articles/s41467-023-39868-6",
+        "venue": "Nature Communications",
+        "year": 2023
+      },
+      "resources": {
+        "code_url": "https://github.com/Ramprasad-Group/polyBERT",
+        "code_status": "author_linked",
+        "model_url": "https://huggingface.co/kuelumbus/polyBERT",
+        "additional_urls": []
+      },
+      "curation": {
+        "summary_zh": "从 PSMILES 学习聚合物指纹，再结合多任务预测头预测多类性质。",
+        "notes_zh": "原图 100M 指假想结构语料；论文从 13,766 个已知聚合物的片段重组生成 100M PSMILES。方法实际为掩码语言建模（MLM）。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "transpolymer",
+      "name": "TransPolymer",
+      "category": "property_prediction",
+      "scope": "polymer",
+      "source_table": {
+        "year": 2023,
+        "application": "Multidomain prediction [B]",
+        "modality": [
+          "Sequence"
+        ],
+        "architecture": "RoBERTa",
+        "pretraining_data": "PI1M (1M)",
+        "pretraining_method": "GL"
+      },
+      "paper": {
+        "title": "TransPolymer: a Transformer-based language model for polymer property predictions",
+        "url": "https://arxiv.org/abs/2209.01307",
+        "venue": "npj Computational Materials",
+        "year": 2023
+      },
+      "resources": {
+        "code_url": "https://github.com/ChangwenXu98/TransPolymer",
+        "code_status": "author_linked",
+        "model_url": "https://huggingface.co/ChangwenXu/TransPolymer",
+        "additional_urls": []
+      },
+      "curation": {
+        "summary_zh": "使用化学感知分词与掩码预训练，微调预测电学、光学、电解质等性质。",
+        "notes_zh": "作者仓库注明 PI1M 原始约 1M，五倍增强后约 5M 序列；不要将这两个规模混用。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "sml-mt",
+      "name": "SML-MT",
+      "category": "property_prediction",
+      "scope": "molecular_transfer",
+      "source_table": {
+        "year": 2023,
+        "application": "Electronic and optical prediction [B]",
+        "modality": [
+          "Sequence"
+        ],
+        "architecture": "BERT",
+        "pretraining_data": "Enamine (1M)",
+        "pretraining_method": "GL"
+      },
+      "paper": {
+        "title": "Transferring a Molecular Foundation Model for Polymer Property Predictions",
+        "url": "https://arxiv.org/abs/2310.16958",
+        "venue": "Journal of Chemical Information and Modeling",
+        "year": 2023
+      },
+      "resources": {
+        "code_url": null,
+        "code_status": "not_located",
+        "model_url": null,
+        "additional_urls": [
+          "https://www.osti.gov/servlets/purl/2282951",
+          "https://doi.org/10.1021/acs.jcim.3c01650"
+        ]
+      },
+      "curation": {
+        "summary_zh": "将小分子预训练表示迁移到聚合物性质预测，研究跨化学空间的迁移学习。",
+        "notes_zh": "规模存在实质差异：原图 Enamine 1M；作者稿明确为约 1 billion（1B，10亿）Enamine REAL 小分子。代码未定位。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "spg-ted289m",
+      "name": "SPG-TED289M",
+      "category": "property_prediction",
+      "scope": "polymer",
+      "source_table": {
+        "year": 2024,
+        "application": "Thermal, optical, membrane, and electrolyte prediction [B]",
+        "modality": [
+          "Sequence"
+        ],
+        "architecture": "BERT",
+        "pretraining_data": "Polymers from open literature (1M)",
+        "pretraining_method": "GL"
+      },
+      "paper": {
+        "title": "A Large Encoder-Decoder Polymer-Based Foundation Model",
+        "url": "https://research.ibm.com/publications/a-large-encoder-decoder-polymer-based-foundation-model",
+        "venue": "NeurIPS 2024 AI4Mat workshop",
+        "year": 2024
+      },
+      "resources": {
+        "code_url": null,
+        "code_status": "not_located",
+        "model_url": null,
+        "additional_urls": [
+          "https://openreview.net/pdf?id=L47GThI95d"
+        ]
+      },
+      "curation": {
+        "summary_zh": "基于 serialized polymer graph（SPG）序列表示进行预训练，支持多类聚合物预测任务。",
+        "notes_zh": "IBM 官方摘要称其为 encoder-decoder，约 1M SPG 样本；原图 BERT 是简化架构标签。未定位专属代码/权重，不能用 SMI-TED 替代。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "polycl",
+      "name": "PolyCL",
+      "category": "property_prediction",
+      "scope": "polymer",
+      "source_table": {
+        "year": 2025,
+        "application": "Electronic and optical prediction [B]",
+        "modality": [
+          "Sequence"
+        ],
+        "architecture": "DeBERTa",
+        "pretraining_data": "PI1M (1M)",
+        "pretraining_method": "CL"
+      },
+      "paper": {
+        "title": "PolyCL: contrastive learning for polymer representation learning via explicit and implicit augmentations",
+        "url": "https://pubs.rsc.org/en/content/articlelanding/2025/dd/d4dd00236a",
+        "venue": "Digital Discovery",
+        "year": 2025
+      },
+      "resources": {
+        "code_url": "https://github.com/JiajunZhou96/PolyCL",
+        "code_status": "author_linked",
+        "model_url": null,
+        "additional_urls": []
+      },
+      "curation": {
+        "summary_zh": "通过显式与隐式增强进行对比学习，获得可迁移的聚合物表示。",
+        "notes_zh": "2025 是期刊卷期年；RSC 标示首次在线发表为 2024-11-28。代码指向聚合物 PolyCL，避免误连同名医学图像项目。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "trinity",
+      "name": "Trinity",
+      "category": "property_prediction",
+      "scope": "polymer",
+      "source_table": {
+        "year": 2025,
+        "application": "Flammability prediction [B]",
+        "modality": [
+          "Sequence"
+        ],
+        "architecture": "MoLFormer",
+        "pretraining_data": null,
+        "pretraining_method": null
+      },
+      "paper": {
+        "title": "Harnessing large language models for data-scarce learning of polymer properties",
+        "url": "https://www.nature.com/articles/s43588-025-00768-y",
+        "venue": "Nature Computational Science",
+        "year": 2025
+      },
+      "resources": {
+        "code_url": "https://github.com/ningliu-iga/TrinityLLM",
+        "code_status": "author_linked",
+        "model_url": null,
+        "additional_urls": [
+          "https://arxiv.org/abs/2407.02770"
+        ]
+      },
+      "curation": {
+        "summary_zh": "利用物理模型生成的合成数据先训练，再用有限实验数据微调，预测聚合物燃烧性能。",
+        "notes_zh": "作者代码项目名 TrinityLLM。原图预训练两列为空，不表示模型没有预训练；作者仓库说明使用 MoLFormer，并采用物理合成数据与实验数据两阶段训练。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "mhg-gnn",
+      "name": "MHG-GNN",
+      "category": "property_prediction",
+      "scope": "general_molecular_with_polymer_tasks",
+      "source_table": {
+        "year": 2023,
+        "application": "Multidomain prediction [B]",
+        "modality": [
+          "Graph"
+        ],
+        "architecture": "GIN, MHG",
+        "pretraining_data": "PubChem (1.3M)",
+        "pretraining_method": "GL"
+      },
+      "paper": {
+        "title": "MHG-GNN: Combination of Molecular Hypergraph Grammar with Graph Neural Network",
+        "url": "https://arxiv.org/abs/2309.16374",
+        "venue": "NeurIPS 2023 AI4Mat workshop",
+        "year": 2023
+      },
+      "resources": {
+        "code_url": "https://github.com/IBM/materials",
+        "code_status": "related_author_release",
+        "model_url": "https://huggingface.co/ibm-research/materials.mhg-ged",
+        "additional_urls": []
+      },
+      "curation": {
+        "summary_zh": "结合分子超图语法与图神经网络的自编码器，包含聚合物性质预测应用。",
+        "notes_zh": "通用材料/分子表示模型。IBM 当前发布入口使用 MHG-GED 命名，列为相关实现入口，不声称与原论文版本完全相同。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "polymer-jepa",
+      "name": "Polymer-JEPA",
+      "category": "property_prediction",
+      "scope": "polymer",
+      "source_table": {
+        "year": 2026,
+        "application": "Electron-affinity and phase prediction [B]",
+        "modality": [
+          "Graph"
+        ],
+        "architecture": "JEPA",
+        "pretraining_data": "Copolymer dataset (43k)",
+        "pretraining_method": "PL"
+      },
+      "paper": {
+        "title": "Joint embedding predictive architecture for self-supervised pretraining on polymer molecular graphs",
+        "url": "https://pubs.rsc.org/en/content/articlelanding/2026/dd/d5dd00308c",
+        "venue": "Digital Discovery",
+        "year": 2026
+      },
+      "resources": {
+        "code_url": "https://github.com/Intelligent-molecular-systems/Polymer-JEPA",
+        "code_status": "author_linked",
+        "model_url": null,
+        "additional_urls": [
+          "https://arxiv.org/abs/2506.18194",
+          "https://doi.org/10.5281/zenodo.17630815"
+        ]
+      },
+      "curation": {
+        "summary_zh": "在聚合物图的潜在空间进行自监督预测，面向标签稀缺的性质学习。",
+        "notes_zh": "原图采用 2026 期刊年；预印本首发于 2025。作者仓库包含 GNN 与 Transformer 编码器版本，推荐的 v2 使用 GNN。43k 规模保留原图口径。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "mmpolymer",
+      "name": "MMPolymer",
+      "category": "property_prediction",
+      "scope": "polymer",
+      "source_table": {
+        "year": 2024,
+        "application": "Multidomain prediction [B]",
+        "modality": [
+          "Sequence",
+          "3D"
+        ],
+        "architecture": "RoBERTa, SE(3)-Transformer",
+        "pretraining_data": "PI1M (1M)",
+        "pretraining_method": "GL, CL, denoising"
+      },
+      "paper": {
+        "title": "MMPolymer: A Multimodal Multitask Pretraining Framework for Polymer Property Prediction",
+        "url": "https://arxiv.org/abs/2406.04727",
+        "venue": "CIKM",
+        "year": 2024
+      },
+      "resources": {
+        "code_url": "https://github.com/FanmengWang/MMPolymer",
+        "code_status": "author_linked",
+        "model_url": null,
+        "additional_urls": []
+      },
+      "curation": {
+        "summary_zh": "联合 1D 序列与 3D 结构，通过掩码恢复、坐标去噪及跨模态对齐进行预训练。",
+        "notes_zh": "论文使用 Star Substitution 构造结构信息；这里的 3D 表示应按论文定义理解，不等同于实验测得的完整聚合物链构象。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "polync",
+      "name": "PolyNC",
+      "category": "property_prediction",
+      "scope": "polymer",
+      "source_table": {
+        "year": 2024,
+        "application": "Property prediction [B]; Tg validation [E]",
+        "modality": [
+          "Sequence",
+          "Text"
+        ],
+        "architecture": "Text+Chem T5",
+        "pretraining_data": null,
+        "pretraining_method": null
+      },
+      "paper": {
+        "title": "PolyNC: a natural and chemical language model for the prediction of unified polymer properties",
+        "url": "https://pubs.rsc.org/en/content/articlelanding/2024/sc/d3sc05079c",
+        "venue": "Chemical Science",
+        "year": 2024
+      },
+      "resources": {
+        "code_url": "https://github.com/HKQiu/Unified_ML4Polymers",
+        "code_status": "author_linked",
+        "model_url": "https://huggingface.co/hkqiu/PolyNC",
+        "additional_urls": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10763023/"
+        ]
+      },
+      "curation": {
+        "summary_zh": "结合自然语言与化学语言，以统一任务格式预测聚合物性质，包含 Tg 实验验证。",
+        "notes_zh": "2024 为期刊卷期年。原图预训练数据及方法为空；不据此推断从零训练。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "mips",
+      "name": "MIPS",
+      "category": "property_prediction",
+      "scope": "polymer",
+      "source_table": {
+        "year": 2025,
+        "application": "Multidomain prediction [B]",
+        "modality": [
+          "Graph",
+          "3D"
+        ],
+        "architecture": "Graphormer",
+        "pretraining_data": "PI1M (1M)",
+        "pretraining_method": "GL, multimodal learning"
+      },
+      "paper": {
+        "title": "MIPS: a Multimodal Infinite Polymer Sequence Pre-training Framework for Polymer Property Prediction",
+        "url": "https://arxiv.org/abs/2507.20326",
+        "venue": "ACM Multimedia",
+        "year": 2025
+      },
+      "resources": {
+        "code_url": "https://github.com/wjxts/MIPS",
+        "code_status": "author_linked",
+        "model_url": null,
+        "additional_urls": []
+      },
+      "curation": {
+        "summary_zh": "通过 star linking 表示无限重复聚合物序列，并融合拓扑与 3D 信息。",
+        "notes_zh": "Graphormer 为原图架构标签；论文重点是局部图注意力、主链嵌入与跨模态融合。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "polyllmem",
+      "name": "PolyLLMem",
+      "category": "property_prediction",
+      "scope": "polymer",
+      "source_table": {
+        "year": 2025,
+        "application": "Multidomain prediction [B]",
+        "modality": [
+          "Sequence",
+          "Text",
+          "3D"
+        ],
+        "architecture": "Llama, Uni-Mol",
+        "pretraining_data": null,
+        "pretraining_method": null
+      },
+      "paper": {
+        "title": "Multimodal machine learning with large language embedding model for polymer property prediction",
+        "url": "https://arxiv.org/abs/2503.22962",
+        "venue": "arXiv preprint",
+        "year": 2025
+      },
+      "resources": {
+        "code_url": "https://github.com/zhangtr10/PolyLLMem",
+        "code_status": "author_linked_contents_unconfirmed",
+        "model_url": null,
+        "additional_urls": []
+      },
+      "curation": {
+        "summary_zh": "融合 Llama 3 文本嵌入与 Uni-Mol 结构嵌入，用 LoRA 调整后预测聚合物性质。",
+        "notes_zh": "原图预训练为空；论文使用已有 Llama 3 与 Uni-Mol 表示，不等于没有预训练。作者代码链接存在，但本次访问只看到仓库入口，未确认完整实现可用。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "str-bamba",
+      "name": "STR-Bamba",
+      "category": "property_prediction",
+      "scope": "general_molecular_with_polymer_tasks",
+      "source_table": {
+        "year": 2025,
+        "application": "Multidomain prediction [B]",
+        "modality": [
+          "Sequence",
+          "Text"
+        ],
+        "architecture": "Bamba",
+        "pretraining_data": "PubChem (117M); polymers from open literature (2M)",
+        "pretraining_method": "GL, PL"
+      },
+      "paper": {
+        "title": "STR-Bamba: Multimodal Molecular Textual Representation Encoder-Decoder Foundation Model",
+        "url": "https://openreview.net/pdf?id=0uWNuJ1xtz",
+        "venue": "OpenReview manuscript",
+        "year": 2025
+      },
+      "resources": {
+        "code_url": "https://github.com/IBM/materials/tree/main/models/str_bamba",
+        "code_status": "author_linked",
+        "model_url": "https://huggingface.co/ibm-research/materials.str-bamba",
+        "additional_urls": []
+      },
+      "curation": {
+        "summary_zh": "基于 Transformer 与 Mamba-2 混合架构，编码多种分子字符串与聚合物表示。",
+        "notes_zh": "原图 PubChem 117M；作者模型卡写约 118M 小分子、2M 聚合物及 258 个配方，另有 588M 多表示样本口径。GL/PL 标签保留原图，实际目标以原文为准。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "uni-poly",
+      "name": "Uni-Poly",
+      "category": "property_prediction",
+      "scope": "polymer",
+      "source_table": {
+        "year": 2025,
+        "application": "Thermal, density, and resistivity prediction [B]",
+        "modality": [
+          "Sequence",
+          "Text",
+          "Graph",
+          "3D"
+        ],
+        "architecture": "ChemBERTa, GIN, Text+Chem T5, SchNet",
+        "pretraining_data": "PolyInfo (15k)",
+        "pretraining_method": "Multimodal learning"
+      },
+      "paper": {
+        "title": "Unified multimodal multidomain polymer representation for property prediction",
+        "url": "https://www.nature.com/articles/s41524-025-01652-z",
+        "venue": "npj Computational Materials",
+        "year": 2025
+      },
+      "resources": {
+        "code_url": "https://github.com/huang-qi/Uni-Poly",
+        "code_status": "author_linked_access_failed",
+        "model_url": null,
+        "additional_urls": [
+          "https://d-nb.info/1372505911/34"
+        ]
+      },
+      "curation": {
+        "summary_zh": "整合 SMILES、图、几何、指纹与领域文本，预测热学性质、密度及电阻率。",
+        "notes_zh": "论文给出作者仓库 huang-qi/Uni-Poly，但本次网页访问返回 404；保留作者声明链接并标记访问失败。PolyInfo 数据需遵循 NIMS 使用条件。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "polyrl",
+      "name": "PolyRL",
+      "category": "inverse_design",
+      "scope": "polymer",
+      "source_table": {
+        "year": 2026,
+        "application": "Gas-separation design [S, Sim]",
+        "modality": [
+          "Sequence"
+        ],
+        "architecture": "GPT-2, Llama-2",
+        "pretraining_data": "Hypothetical polymers (1M)",
+        "pretraining_method": "GL"
+      },
+      "paper": {
+        "title": "PolyRL: reinforcement learning-guided polymer generation for multi-objective polymer discovery",
+        "url": "https://pubs.rsc.org/en/content/articlelanding/2026/dd/d5dd00272a",
+        "venue": "Digital Discovery",
+        "year": 2026
+      },
+      "resources": {
+        "code_url": "https://github.com/Knitua/PolyRL",
+        "code_status": "author_linked",
+        "model_url": null,
+        "additional_urls": [
+          "https://doi.org/10.5281/zenodo.17498383",
+          "https://doi.org/10.5281/zenodo.17498407"
+        ]
+      },
+      "curation": {
+        "summary_zh": "结合生成模型、性质奖励与强化学习，优化气体分离聚合物，并进行分子模拟验证。",
+        "notes_zh": "2026 是期刊卷期年，作者稿首次在线发表于 2025-11-25。作者仓库引用作者名单与出版页面不一致，引用请以出版商为准。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "polytao",
+      "name": "PolyTAO",
+      "category": "inverse_design",
+      "scope": "polymer",
+      "source_table": {
+        "year": 2024,
+        "application": "Property-conditioned generation [S]",
+        "modality": [
+          "Sequence",
+          "Text"
+        ],
+        "architecture": "Text+Chem T5",
+        "pretraining_data": "PI1M (1M)",
+        "pretraining_method": "GL (structure-property)"
+      },
+      "paper": {
+        "title": "On-demand reverse design of polymers with PolyTAO",
+        "url": "https://www.nature.com/articles/s41524-024-01466-5",
+        "venue": "npj Computational Materials",
+        "year": 2024
+      },
+      "resources": {
+        "code_url": "https://github.com/hkqiu/PolymerGenerationPretrainedModel",
+        "code_status": "author_linked",
+        "model_url": "https://huggingface.co/hkqiu/PolymerGenerationPretrainedModel",
+        "additional_urls": [
+          "https://d-nb.info/1356348556/34"
+        ]
+      },
+      "curation": {
+        "summary_zh": "从性质提示生成聚合物结构，支持半模板与无模板条件生成。",
+        "notes_zh": "作者论文说明基于 PolyNC 初始权重训练；条件预训练使用约 1M 结构-性质对。原图 S 为代理性质评估。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "demodiff",
+      "name": "DemoDiff",
+      "category": "inverse_design",
+      "scope": "general_molecular_with_polymer_tasks",
+      "source_table": {
+        "year": 2025,
+        "application": "In-context design [S]",
+        "modality": [
+          "Graph"
+        ],
+        "architecture": "GraphDiT",
+        "pretraining_data": "PolyInfo, MSA",
+        "pretraining_method": "GL (task-context)"
+      },
+      "paper": {
+        "title": "Graph Diffusion Transformers are In-Context Molecular Designers",
+        "url": "https://arxiv.org/abs/2510.08744",
+        "venue": "arXiv preprint",
+        "year": 2025
+      },
+      "resources": {
+        "code_url": "https://github.com/liugangcode/DemoDiff",
+        "code_status": "author_linked",
+        "model_url": "https://huggingface.co/liuganghuggingface/DemoDiff-0.7B",
+        "additional_urls": []
+      },
+      "curation": {
+        "summary_zh": "用分子-分数示例构成任务上下文，引导图扩散模型适应分子与材料设计任务。",
+        "notes_zh": "通用分子模型，包含聚合物设计任务。原图只列 PolyInfo/MSA，论文语料覆盖药物与材料多来源；不能视为仅用聚合物预训练。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "comole",
+      "name": "CoMole",
+      "category": "inverse_design",
+      "scope": "general_molecular_with_polymer_tasks",
+      "source_table": {
+        "year": 2026,
+        "application": "Property-conditioned generation [S]",
+        "modality": [
+          "Graph"
+        ],
+        "architecture": "GraphDiT",
+        "pretraining_data": "Real polymers (13k)",
+        "pretraining_method": "Denoising"
+      },
+      "paper": {
+        "title": "Controllable Molecular Generative Foundation Models",
+        "url": "https://arxiv.org/abs/2605.15354",
+        "venue": "arXiv preprint",
+        "year": 2026
+      },
+      "resources": {
+        "code_url": null,
+        "code_status": "not_located",
+        "model_url": null,
+        "additional_urls": [
+          "https://arxiv.org/html/2605.15354v2"
+        ]
+      },
+      "curation": {
+        "summary_zh": "以 motif-aware 图扩散和强化学习实现可控生成，评估聚合物气体渗透与 DFT 性质。",
+        "notes_zh": "论文说明材料部分用约 13k 真实聚合物预训练，同时还有药物相关任务。架构及 Denoising 标签为原图概括；未定位官方代码链接。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "polybart",
+      "name": "polyBART",
+      "category": "unified_prediction_design",
+      "scope": "polymer",
+      "source_table": {
+        "year": 2025,
+        "application": "Property prediction [B]; inverse design [S, E]",
+        "modality": [
+          "Sequence"
+        ],
+        "architecture": "SELFIES-TED",
+        "pretraining_data": "Genome, SMiPoly (200M), real polymers (13k)",
+        "pretraining_method": "Denoising"
+      },
+      "paper": {
+        "title": "polyBART: A Chemical Linguist for Polymer Property Prediction and Generative Design",
+        "url": "https://aclanthology.org/2025.findings-emnlp.647/",
+        "venue": "Findings of EMNLP",
+        "year": 2025
+      },
+      "resources": {
+        "code_url": null,
+        "code_status": "not_located",
+        "model_url": null,
+        "additional_urls": [
+          "https://arxiv.org/abs/2506.04233"
+        ]
+      },
+      "curation": {
+        "summary_zh": "用 PSELFIES 适配分子语言模型，统一结构-性质翻译与聚合物生成，包含实验合成验证。",
+        "notes_zh": "原图约 200M 是语料概括。正式论文附录列总语料 210,645,750；small 使用约 200M，large 使用 25M，规模取决于变体。未定位官方代码。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "polyt5",
+      "name": "POLYT5",
+      "category": "unified_prediction_design",
+      "scope": "polymer",
+      "source_table": {
+        "year": 2026,
+        "application": "Property prediction [B]; dielectric design [S, Sim, E]",
+        "modality": [
+          "Sequence"
+        ],
+        "architecture": "T5",
+        "pretraining_data": "Hypothetical polymers (100M), real polymers (13k)",
+        "pretraining_method": "GL"
+      },
+      "paper": {
+        "title": "POLYT5: an encoder-decoder foundation chemical language model for generative polymer design",
+        "url": "https://www.nature.com/articles/s44387-026-00087-1",
+        "venue": "npj Artificial Intelligence",
+        "year": 2026
+      },
+      "resources": {
+        "code_url": null,
+        "code_status": "not_located",
+        "model_url": null,
+        "additional_urls": [
+          "https://arxiv.org/abs/2510.18860",
+          "https://ramprasad.mse.gatech.edu/wp-content/uploads/2026/03/polyT5-Sahu_et_al-2026-npj_Artificial_Intelligence.pdf"
+        ]
+      },
+      "curation": {
+        "summary_zh": "基于 T5 编码器-解码器，联合性质预测与目标性质条件生成，包含介电材料设计验证。",
+        "notes_zh": "预印本首发于 2025，正式期刊年为 2026。作者稿说明超过 100M 假想结构；Data availability 明确数据因机构考虑 IP 保护而未公开。未定位官方代码。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "polyconfm",
+      "name": "PolyConFM",
+      "category": "unified_prediction_design",
+      "scope": "polymer",
+      "source_table": {
+        "year": 2025,
+        "application": "Property prediction [B]; conformation generation [B]; polymer design [S]",
+        "modality": [
+          "Sequence",
+          "3D"
+        ],
+        "architecture": "MolCLR, Uni-Mol, GraphDiT",
+        "pretraining_data": "50k polymers with conformations",
+        "pretraining_method": "GL"
+      },
+      "paper": {
+        "title": "Unifying Polymer Modeling and Design via a Conformation-Centric Generative Foundation Model",
+        "url": "https://arxiv.org/abs/2510.16023",
+        "venue": "arXiv preprint",
+        "year": 2025
+      },
+      "resources": {
+        "code_url": "https://github.com/FanmengWang/PolyConFM",
+        "code_status": "author_linked",
+        "model_url": null,
+        "additional_urls": []
+      },
+      "curation": {
+        "summary_zh": "以构象生成预训练连接聚合物建模、性质预测与条件设计。",
+        "notes_zh": "论文介绍掩码自回归局部构象重建与方向变换。原图架构为组件概括；作者仓库标题采用 A Conformation-Centric Generative Foundation Model for Linear Polymer Modeling and Design。50k 规模为原图口径。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    },
+    {
+      "id": "llamole",
+      "name": "Llamole",
+      "category": "unified_prediction_design",
+      "scope": "general_molecular_related",
+      "source_table": {
+        "year": 2025,
+        "application": "Molecular design [S]; retrosynthesis [B]",
+        "modality": [
+          "Text",
+          "Graph"
+        ],
+        "architecture": "GraphDiT, GNN",
+        "pretraining_data": "Graph-text pairs (600k)",
+        "pretraining_method": "Denoising, CL, reaction-template supervision"
+      },
+      "paper": {
+        "title": "Multimodal Large Language Models for Inverse Molecular Design with Retrosynthetic Planning",
+        "url": "https://arxiv.org/abs/2410.04223",
+        "venue": "ICLR",
+        "year": 2025
+      },
+      "resources": {
+        "code_url": "https://github.com/liugangcode/Llamole",
+        "code_status": "author_linked",
+        "model_url": null,
+        "additional_urls": []
+      },
+      "curation": {
+        "summary_zh": "将 LLM 与图生成/预测模块结合，生成目标分子并进行逆合成规划。",
+        "notes_zh": "属于通用分子设计与逆合成模型，不能据原图归类声称其已经验证聚合物专属逆合成。预印本为 2024，会议年为 2025；原图架构省略了基础 LLM。",
+        "identity_status": "primary_source_located",
+        "technical_field_status": "source_table_transcribed_with_selected_primary_source_checks",
+        "checked_on": "2026-10-14"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1244 @@
+{
+  "schema_version": "1.0",
+  "created_on": "2026-10-14",
+  "note": "Architecture illustrations redrawn from sources; not original paper figures. Reused images are preserved unchanged. High-level entries with missing local PDFs explicitly omit unverified settings.",
+  "style_reference": "PolymerGeneration/research_output/figures/PolyTAO.png",
+  "models": [
+    {
+      "id": "polybert",
+      "model": "polyBERT",
+      "image": "polyBERT.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "polyBERT: a chemical language model to enable fully machine-driven ultrafast polymer informatics",
+        "paper_url": "https://www.nature.com/articles/s41467-023-39868-6",
+        "local_pdf_filename": "polyBERT_2023_published.pdf",
+        "pdf_page_numbers": [
+          2,
+          6,
+          7
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "区分 MLM 预训练、冻结 encoder 指纹抽取、多任务神经性质预测；不把 encoder 当生成器。",
+      "content_spec": {
+        "title": "polyBERT",
+        "subtitle": "Polymer fingerprints and multitask property prediction",
+        "panels": [
+          [
+            "01 | Chemical language pretraining",
+            [
+              "13,766 known polymers",
+              "BRICS fragment recombination",
+              "100M hypothetical PSMILES",
+              "Canonicalize + tokenize + mask",
+              "DeBERTa encoder",
+              "Masked-token prediction"
+            ]
+          ],
+          [
+            "02 | Polymer fingerprint",
+            [
+              "Polymer PSMILES",
+              "Pretrained DeBERTa (frozen)",
+              "Token-level embeddings",
+              "Mean pooling over tokens",
+              "Fixed polymer fingerprint"
+            ]
+          ],
+          [
+            "03 | Supervised property learning",
+            [
+              "Fingerprint + property labels",
+              "Multitask neural predictors",
+              "Thermal / mechanical / electronic / transport properties"
+            ]
+          ]
+        ],
+        "notes": [
+          "Pretraining: masked language modeling",
+          "Downstream: supervised property regression",
+          "Encoder fingerprints do not directly generate polymers"
+        ]
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "transpolymer",
+      "model": "TransPolymer",
+      "image": "TransPolymer.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "TransPolymer: a Transformer-based language model for polymer property predictions",
+        "paper_url": "https://arxiv.org/abs/2209.01307",
+        "local_pdf_filename": "TransPolymer_2023_published.pdf",
+        "pdf_page_numbers": [
+          3,
+          12
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "采用 RoBERTa 的 <s> 表示；化学描述符是输入元数据，不是选择性质的自然语言提示。已针对特殊 token 和例子文字做图像修正。",
+      "content_spec": {
+        "title": "TransPolymer",
+        "subtitle": "Chemical-aware tokenization and polymer property transfer learning",
+        "panels": [
+          [
+            "01 | Pretraining",
+            [
+              "PI1M polymer sequences",
+              "Noncanonical SMILES augmentation",
+              "Chemical-aware tokenizer",
+              "Masked tokens",
+              "RoBERTa encoder",
+              "Recover masked tokens"
+            ]
+          ],
+          [
+            "02 | Property fine-tuning",
+            [
+              "Polymer sequence + available chemical descriptors",
+              "Pretrained RoBERTa",
+              "Final <s> token representation",
+              "One-layer MLP regressor",
+              "Target polymer property"
+            ]
+          ],
+          [
+            "03 | Representation",
+            [
+              "Multi-head self-attention",
+              "Feed-forward layers",
+              "Task-specific supervised fine-tuning"
+            ]
+          ]
+        ],
+        "notes": [
+          "PI1M: about 1M structures; about 5M augmented sequences",
+          "Masked-token pretraining; supervised regression downstream",
+          "Property prediction is distinct from polymer generation"
+        ],
+        "layout": "Render the sequence-start token exactly as <s>, never [CLS]. Avoid all SMILES examples, mock molecular structures, Tg-specific task prompts and invented descriptor values. Chemical descriptors are available input metadata, not a task-selecting natural-language prompt."
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "sml-mt",
+      "model": "SML-MT",
+      "image": "SML-MT.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "Transferring a Molecular Foundation Model for Polymer Property Predictions",
+        "paper_url": "https://arxiv.org/abs/2310.16958",
+        "local_pdf_filename": "SML-MT_2023_author_manuscript.pdf",
+        "pdf_page_numbers": [
+          8,
+          9,
+          12
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "Enamine 约 1B 小分子；BERT 的 [CLS] 表示接 dropout 和线性多任务输出；性质微调采用 L1。",
+      "content_spec": {
+        "title": "SML-MT",
+        "subtitle": "Small-molecule pretraining transferred to polymer properties",
+        "panels": [
+          [
+            "01 | Molecular foundation model",
+            [
+              "Enamine REAL small molecules (~1B)",
+              "Regex SMILES tokenizer",
+              "15% masked tokens",
+              "BERT encoder",
+              "Masked-token prediction"
+            ]
+          ],
+          [
+            "02 | Multitask polymer transfer",
+            [
+              "Polymer repeat-unit SMILES",
+              "Pretrained BERT encoder",
+              "[CLS] representation",
+              "Dropout + linear output layer",
+              "Multiple DFT properties"
+            ]
+          ],
+          [
+            "03 | Training",
+            [
+              "Update encoder and prediction head",
+              "Shared features across property tasks",
+              "Evaluate on held-out polymers"
+            ]
+          ]
+        ],
+        "notes": [
+          "BERT: 12 layers / 12 attention heads / 768 hidden dimensions",
+          "Pretraining: MLM; fine-tuning: supervised L1 regression",
+          "Transfer learning from small molecules to polymers"
+        ]
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "spg-ted289m",
+      "model": "SPG-TED289M",
+      "image": "SPG-TED289M.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "A Large Encoder-Decoder Polymer-Based Foundation Model",
+        "paper_url": "https://research.ibm.com/publications/a-large-encoder-decoder-polymer-based-foundation-model",
+        "local_pdf_filename": null,
+        "pdf_page_numbers": [],
+        "evidence_level": "public_source_high_level",
+        "additional_urls": [
+          "https://research.ibm.com/publications/a-large-encoder-decoder-polymer-based-foundation-model"
+        ]
+      },
+      "architecture_review_zh": "仅绘制官方摘要支持的 SPG 序列、encoder-decoder、性质迁移的概要。无本地 PDF，不断言层数、精确损失或 head 结构。",
+      "content_spec": {
+        "title": "SPG-TED289M",
+        "subtitle": "Serialized polymer graphs in an encoder-decoder foundation model",
+        "panels": [
+          [
+            "01 | Polymer representation",
+            [
+              "Polymer connectivity / architecture",
+              "Serialize as SPG",
+              "SPG-aware tokenization",
+              "About 1M SPG pretraining samples"
+            ]
+          ],
+          [
+            "02 | Foundation model",
+            [
+              "Transformer token encoder",
+              "Learned polymer representation",
+              "Decoder / sequence reconstruction"
+            ]
+          ],
+          [
+            "03 | Downstream prediction",
+            [
+              "Adapt learned representation",
+              "Task-specific prediction output",
+              "Thermal / optical / membrane / electrolyte properties"
+            ]
+          ]
+        ],
+        "notes": [
+          "High-level schematic based on official IBM abstract",
+          "Detailed layer configuration and training objectives are not asserted",
+          "Local paper PDF unavailable"
+        ],
+        "layout": "Use a deliberately high-level encoder-decoder schematic. Decoder reconstructs the serialized polymer sequence. A separate downstream branch leaves the learned representation for prediction. Do not label an autoregressive GPT decoder, specific latent size, or exact loss without support."
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "polycl",
+      "model": "PolyCL",
+      "image": "PolyCL.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "PolyCL: contrastive learning for polymer representation learning via explicit and implicit augmentations",
+        "paper_url": "https://pubs.rsc.org/en/content/articlelanding/2025/dd/d4dd00236a",
+        "local_pdf_filename": "PolyCL_2024_preprint.pdf",
+        "pdf_page_numbers": [
+          6,
+          7,
+          8,
+          9
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "共享 encoder / projector 的两条并行正例分支，NT-Xent 训练；下游冻结 encoder 并绕过 projector。已针对视图之间错误连线做图像修正。",
+      "content_spec": {
+        "title": "PolyCL",
+        "subtitle": "Explicit and implicit augmentation for polymer contrastive learning",
+        "panels": [
+          [
+            "01 | Two views of one polymer",
+            [
+              "Polymer PSMILES",
+              "Explicit augmentation: mask / drop / enumeration",
+              "Implicit augmentation: dropout",
+              "View 1",
+              "View 2"
+            ]
+          ],
+          [
+            "02 | Shared representation learning",
+            [
+              "Shared polyBERT-initialized DeBERTa encoder",
+              "[CLS] pooling -> h1 / h2",
+              "Shared two-layer projector -> z1 / z2",
+              "NT-Xent contrastive loss"
+            ]
+          ],
+          [
+            "03 | Downstream transfer",
+            [
+              "Freeze trained encoder",
+              "Polymer fingerprint",
+              "MLP regressor",
+              "Polymer property"
+            ]
+          ]
+        ],
+        "notes": [
+          "Positive pair: two views of the same polymer",
+          "Other polymers in the batch provide negatives",
+          "Projection head is used for contrastive training, not final regression"
+        ],
+        "layout": "Show two parallel augmented-view branches through the SAME shared encoder and shared projection head. Join at contrastive loss. Downstream path bypasses the projection head."
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "trinity",
+      "model": "Trinity",
+      "image": "Trinity.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "Harnessing large language models for data-scarce learning of polymer properties",
+        "paper_url": "https://www.nature.com/articles/s43588-025-00768-y",
+        "local_pdf_filename": "Trinity_2024_preprint.pdf",
+        "pdf_page_numbers": [
+          2,
+          3,
+          7,
+          8
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "区分物理模型生成合成标签、第一阶段监督预训练和第二阶段实验标签微调；输出 head 是性质回归，不是 token decoder。依据本地 2024 预印本。",
+      "content_spec": {
+        "title": "Trinity / TrinityLLM",
+        "subtitle": "Physics-based synthetic labels followed by experimental fine-tuning",
+        "panels": [
+          [
+            "01 | Synthetic data construction",
+            [
+              "Known fragments / group contributions",
+              "Hypothetical polymer SMILES",
+              "Group-contribution parameters",
+              "Physics-based fire model",
+              "Synthetic property labels"
+            ]
+          ],
+          [
+            "02 | Two-phase learning",
+            [
+              "Pretrained MoLFormer encoder + property head",
+              "Phase 1: supervised learning on synthetic labels",
+              "Physically informed initialization",
+              "Phase 2: fine-tune with scarce experimental data"
+            ]
+          ],
+          [
+            "03 | Prediction",
+            [
+              "New polymer SMILES",
+              "Fine-tuned property model",
+              "Ignition time / peak heat release / smoke metrics"
+            ]
+          ]
+        ],
+        "notes": [
+          "Synthetic labels and experimental labels enter different training phases",
+          "Regression head predicts properties, not SMILES tokens",
+          "Scope: data-scarce polymer flammability prediction"
+        ]
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "mhg-gnn",
+      "model": "MHG-GNN",
+      "image": "MHG-GNN.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "MHG-GNN: Combination of Molecular Hypergraph Grammar with Graph Neural Network",
+        "paper_url": "https://arxiv.org/abs/2309.16374",
+        "local_pdf_filename": "MHG-GNN_2023_preprint.pdf",
+        "pdf_page_numbers": [
+          2,
+          3,
+          4,
+          6
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "GIN graph embedding 接 Gaussian latent 与 MHG-GRU 解码；性质预测单独使用 LightGBM。",
+      "content_spec": {
+        "title": "MHG-GNN",
+        "subtitle": "Graph variational autoencoding with molecular hypergraph grammar",
+        "panels": [
+          [
+            "01 | Graph encoding",
+            [
+              "Molecular graph: atom and bond features",
+              "GIN message passing",
+              "Concatenate graph-level sums across layers",
+              "Mean / log-variance",
+              "Sample Gaussian latent z"
+            ]
+          ],
+          [
+            "02 | Grammar reconstruction",
+            [
+              "Latent z",
+              "GRU sequence decoder",
+              "MHG-constrained production rules",
+              "Apply grammar rules",
+              "Reconstructed molecular graph"
+            ]
+          ],
+          [
+            "03 | Property learning",
+            [
+              "Encoder graph embedding",
+              "LightGBM predictor",
+              "Polymer / photoresist / chromophore properties"
+            ]
+          ]
+        ],
+        "notes": [
+          "Pretraining: reconstruction plus beta-weighted KL",
+          "Molecular Hypergraph Grammar constrains structural validity",
+          "Property predictor uses encoder features; not decoder-generated SMILES"
+        ]
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "polymer-jepa",
+      "model": "Polymer-JEPA",
+      "image": "Polymer-JEPA.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "Joint embedding predictive architecture for self-supervised pretraining on polymer molecular graphs",
+        "paper_url": "https://pubs.rsc.org/en/content/articlelanding/2026/dd/d5dd00308c",
+        "local_pdf_filename": "Polymer-JEPA_2025_preprint.pdf",
+        "pdf_page_numbers": [
+          5,
+          6,
+          7
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "target encoder 读取整图再池化目标子图节点；predictor 使用 context 与位置编码。下游复用 target encoder；未加入未经本地版本确认的 EMA/stop-gradient 细节。",
+      "content_spec": {
+        "title": "Polymer-JEPA",
+        "subtitle": "Predict target-subgraph embeddings from polymer graph context",
+        "panels": [
+          [
+            "01 | Context branch",
+            [
+              "Stochastic polymer graph",
+              "Partition into graph patches",
+              "Context subgraph",
+              "Node-centered wD-MPNN",
+              "Context pooling",
+              "MLP predictor + target position encoding"
+            ]
+          ],
+          [
+            "02 | Target branch",
+            [
+              "Whole polymer graph",
+              "Target wD-MPNN encoder",
+              "Pool nodes belonging to target patches",
+              "Target-subgraph embeddings"
+            ]
+          ],
+          [
+            "03 | Transfer to properties",
+            [
+              "Pretrained TARGET encoder",
+              "Whole-graph embedding",
+              "MLP prediction head",
+              "EA / IP regression or phase classification"
+            ]
+          ]
+        ],
+        "notes": [
+          "Pretraining: L2 loss between predicted and target embeddings",
+          "Context and target patches are disjoint",
+          "This reconstructs latent representations, not atom identities"
+        ],
+        "layout": "Two parallel pretraining branches compare predicted versus target embeddings at an L2 loss. Target branch takes the WHOLE graph and only then pools target nodes. Downstream uses the target encoder. Do not invent EMA or stop-gradient labels."
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "mmpolymer",
+      "model": "MMPolymer",
+      "image": "MMPolymer.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "MMPolymer: A Multimodal Multitask Pretraining Framework for Polymer Property Prediction",
+        "paper_url": "https://arxiv.org/abs/2406.04727",
+        "local_pdf_filename": "MMPolymer_2024_preprint.pdf",
+        "pdf_page_numbers": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "并行序列与原子-对 3D Transformer，三种目标分别是 token CE、坐标 smooth L1、InfoNCE。不照搬原图中简化的 SE(3)-Transformer 架构标签。",
+      "content_spec": {
+        "title": "MMPolymer",
+        "subtitle": "Sequence and 3D representation learning with three pretraining tasks",
+        "panels": [
+          [
+            "01 | Two polymer views",
+            [
+              "PSMILES -> chemical-aware tokens",
+              "1D Transformer encoder",
+              "Star Substitution -> RDKit conformer",
+              "3D atom-pair Transformer encoder"
+            ]
+          ],
+          [
+            "02 | Joint pretraining",
+            [
+              "1D masked-token prediction",
+              "3D coordinate denoising",
+              "Cross-modal contrastive alignment"
+            ]
+          ],
+          [
+            "03 | Property fine-tuning",
+            [
+              "1D embedding and/or 3D embedding",
+              "MLP prediction head",
+              "Polymer property"
+            ]
+          ]
+        ],
+        "notes": [
+          "Token reconstruction: cross-entropy",
+          "Coordinate denoising: smooth L1",
+          "Cross-modal alignment: InfoNCE"
+        ],
+        "layout": "Two parallel modalities: the sequence encoder feeds masked-token prediction and alignment; the 3D encoder feeds coordinate denoising and alignment. Their representations merge only for downstream prediction. Show flexible single- or dual-modality fine-tuning; no whole-chain experimental geometry claim."
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "polync",
+      "model": "PolyNC",
+      "image": "PolyNC.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "PolyNC: a natural and chemical language model for the prediction of unified polymer properties",
+        "paper_url": "https://pubs.rsc.org/en/content/articlelanding/2024/sc/d3sc05079c",
+        "local_pdf_filename": "PolyNC_2024_published_pmc_copy.pdf",
+        "pdf_page_numbers": [
+          3,
+          8,
+          9
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "task prompt 与 SMILES 两种语言输入，T5 encoder-decoder 将性质或类别输出为文本；不同于 PolyTAO 逆向生成。",
+      "content_spec": {
+        "title": "PolyNC",
+        "subtitle": "Natural-language prompts and chemical strings in one text-to-text model",
+        "panels": [
+          [
+            "01 | Paired input",
+            [
+              "Task prompt in natural language",
+              "Polymer SMILES in chemical language",
+              "Separate tokenization + positions"
+            ]
+          ],
+          [
+            "02 | PolyNC core",
+            [
+              "Text+Chem T5 initialization",
+              "Multi-domain Transformer encoder",
+              "Decoder: causal self-attention + encoder cross-attention",
+              "Autoregressive output tokens"
+            ]
+          ],
+          [
+            "03 | Unified prediction",
+            [
+              "Numeric property text: Tg / band gap / atomization energy",
+              "Heat-resistance class label",
+              "Parse text into task result"
+            ]
+          ]
+        ],
+        "notes": [
+          "Supervised text-to-text learning with target tokens",
+          "The task prompt selects the property or class",
+          "PolyNC predicts properties; PolyTAO is its generative extension"
+        ],
+        "layout": "Two input boxes merge at encoder; decoder outputs one selected result as text. Do not depict PolyNC as an inverse polymer generator."
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "mips",
+      "model": "MIPS",
+      "image": "MIPS.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "MIPS: a Multimodal Infinite Polymer Sequence Pre-training Framework for Polymer Property Prediction",
+        "paper_url": "https://arxiv.org/abs/2507.20326",
+        "local_pdf_filename": "MIPS_2025_preprint.pdf",
+        "pdf_page_numbers": [
+          2,
+          4,
+          5,
+          6
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "star linking 与 backbone embedding 编码重复拓扑；3D descriptors 经 projection 与拓扑分支 cross-attention 融合；训练 masked atoms。",
+      "content_spec": {
+        "title": "MIPS",
+        "subtitle": "Infinite polymer sequence modeling with topology and spatial descriptors",
+        "panels": [
+          [
+            "01 | Topology branch",
+            [
+              "Repeat-unit PSMILES",
+              "Star linking: connect polymerization endpoints",
+              "Backbone embedding",
+              "Message passing + local graph attention"
+            ]
+          ],
+          [
+            "02 | Spatial branch",
+            [
+              "Repeat-unit 3D information",
+              "3D descriptors",
+              "Descriptor projection"
+            ]
+          ],
+          [
+            "03 | Fusion and learning",
+            [
+              "Topology queries + spatial keys/values",
+              "Cross-modal attention",
+              "Pretrain: masked-atom classification",
+              "Fine-tune: polymer property regression"
+            ]
+          ]
+        ],
+        "notes": [
+          "Star linking is a compact representation of repeating connectivity",
+          "Pretraining predicts atom types from fused features",
+          "Repeat and Shift Invariance Test is an evaluation, not a training block"
+        ],
+        "layout": "Parallel topology and spatial branches merge through cross-attention. From fused representation branch to masked-atom head during pretraining or regression head during fine-tuning."
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "polyllmem",
+      "model": "PolyLLMem",
+      "image": "PolyLLMem.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "Multimodal machine learning with large language embedding model for polymer property prediction",
+        "paper_url": "https://arxiv.org/abs/2503.22962",
+        "local_pdf_filename": "PolyLLMem_2025_preprint.pdf",
+        "pdf_page_numbers": [
+          6,
+          7,
+          8
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "Llama 3 mean pooling 与碳封端输入的 Uni-Mol 嵌入各自投影，LoRA 用于投影/嵌入细化；gated fusion 后单任务 MLP 回归。",
+      "content_spec": {
+        "title": "PolyLLMem",
+        "subtitle": "Fuse language-model and 3D molecular embeddings for property prediction",
+        "panels": [
+          [
+            "01 | Language branch",
+            [
+              "Prompt: Polymer Smile: PSMILES",
+              "Llama 3 hidden states",
+              "Mean pooling",
+              "Projection + GELU + batch norm",
+              "LoRA refinement"
+            ]
+          ],
+          [
+            "02 | Structure branch",
+            [
+              "Replace PSMILES stars with carbon caps",
+              "Uni-Mol molecular representation",
+              "3D structure embedding",
+              "Projection + GELU + batch norm",
+              "LoRA refinement"
+            ]
+          ],
+          [
+            "03 | Multimodal regression",
+            [
+              "Gated fusion",
+              "Refinement block",
+              "Single-task MLP regressor",
+              "Target polymer property"
+            ]
+          ]
+        ],
+        "notes": [
+          "LoRA refines the projected embedding streams",
+          "Language and structure embeddings have separate encoders",
+          "Carbon-capped repeat-unit geometry is not a measured full polymer chain"
+        ],
+        "layout": "Two balanced parallel encoder branches merge at gated fusion. Put LoRA on the projection/refinement streams, not inside an invented full-model training loop."
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "str-bamba",
+      "model": "STR-Bamba",
+      "image": "STR-Bamba.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "STR-Bamba: Multimodal Molecular Textual Representation Encoder-Decoder Foundation Model",
+        "paper_url": "https://openreview.net/pdf?id=0uWNuJ1xtz",
+        "local_pdf_filename": null,
+        "pdf_page_numbers": [],
+        "evidence_level": "public_source_high_level",
+        "additional_urls": [
+          "https://huggingface.co/ibm-research/materials.str-bamba",
+          "https://github.com/IBM/materials/tree/main/models/str_bamba"
+        ]
+      },
+      "architecture_review_zh": "依据作者模型卡中的多字符串统一词表与 Transformer/Mamba-2 混合 encoder-decoder，绘制概要；无本地 PDF，不臆造层排列。作者模型卡还确认 encoder 用 MLM、decoder 用 encoder-conditioned next-token prediction，图中分开表示。",
+      "content_spec": {
+        "title": "STR-Bamba",
+        "subtitle": "Multiple chemical string representations in a hybrid Bamba encoder-decoder",
+        "panels": [
+          [
+            "01 | Multiple textual views",
+            [
+              "SMILES / SELFIES / InChI",
+              "Formula / IUPAC name",
+              "Polymer SPG / formulations",
+              "Unified vocabulary"
+            ]
+          ],
+          [
+            "02 | Chemical foundation model",
+            [
+              "Hybrid Transformer attention + Mamba-2 blocks",
+              "Encoder: masked-token learning",
+              "Learned chemical representation",
+              "Encoder-conditioned autoregressive decoder",
+              "Decoder: next-token learning"
+            ]
+          ],
+          [
+            "03 | Adaptation",
+            [
+              "Representation learning and sequence tasks",
+              "Property regression / classification",
+              "Molecular and polymer benchmarks"
+            ]
+          ]
+        ],
+        "notes": [
+          "Encoder pretraining: masked language modeling",
+          "Decoder pretraining: encoder-conditioned next-token prediction",
+          "Source: author model card; local paper PDF unavailable"
+        ],
+        "layout": "Many textual representations enter a shared vocabulary and hybrid encoder. A representation branch goes to property prediction; a second branch conditions an autoregressive decoder for chemical-string reconstruction/generation. Show encoder and decoder training objectives separately. Do not invent exact ordering of attention and Mamba-2 layers, numeric settings, or 3D inputs."
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "uni-poly",
+      "model": "Uni-Poly",
+      "image": "Uni-Poly.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "Unified multimodal multidomain polymer representation for property prediction",
+        "paper_url": "https://www.nature.com/articles/s41524-025-01652-z",
+        "local_pdf_filename": "Uni-Poly_2025_published.pdf",
+        "pdf_page_numbers": [
+          7,
+          8,
+          9
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "SMILES、图、几何、指纹、领域 caption 五个并行模态；投影对齐、注意力细化、加权池化、MLP 预测。",
+      "content_spec": {
+        "title": "Uni-Poly",
+        "subtitle": "Unified multimodal and multidomain polymer property representation",
+        "panels": [
+          [
+            "01 | Polymer views",
+            [
+              "Canonical SMILES",
+              "2D graph",
+              "3D geometry",
+              "Fingerprint",
+              "Domain caption from knowledge-enhanced LLM prompting"
+            ]
+          ],
+          [
+            "02 | Shared representation",
+            [
+              "Modality-specific encoders",
+              "Project to common embedding space",
+              "Cross-modal contrastive pretraining",
+              "Multi-head attention + feed-forward refinement",
+              "Attention-weighted pooling"
+            ]
+          ],
+          [
+            "03 | Prediction",
+            [
+              "Unified Uni-Poly embedding",
+              "MLP prediction head",
+              "Tg / melting / decomposition / density / resistivity"
+            ]
+          ]
+        ],
+        "notes": [
+          "Captions combine structured polymer knowledge with LLM domain information",
+          "Five views are complementary inputs, not a serial conversion pipeline",
+          "Property learning follows cross-modal representation learning"
+        ],
+        "layout": "Show five parallel input branches into modality-specific encoders, then common projection and attention fusion. Keep LLM caption generation as an upstream side branch feeding only the caption modality."
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "polyrl",
+      "model": "PolyRL",
+      "image": "PolyRL.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "PolyRL: reinforcement learning-guided polymer generation for multi-objective polymer discovery",
+        "paper_url": "https://pubs.rsc.org/en/content/articlelanding/2026/dd/d5dd00272a",
+        "local_pdf_filename": null,
+        "pdf_page_numbers": [],
+        "evidence_level": "public_source_high_level",
+        "additional_urls": [
+          "https://pubs.rsc.org/en/content/articlelanding/2026/dd/d5dd00272a",
+          "https://github.com/Knitua/PolyRL"
+        ]
+      },
+      "architecture_review_zh": "基于作者公开说明绘制生成器/独立性质 oracle/RL reward loop/候选 MD 验证；无本地 PDF，不断言唯一 RL 算法或所有候选均已模拟。",
+      "content_spec": {
+        "title": "PolyRL",
+        "subtitle": "Reinforcement-learning-guided polymer design and physical validation",
+        "panels": [
+          [
+            "01 | Build prior and property oracle",
+            [
+              "Polymer SMILES corpus",
+              "Autoregressive generator pretraining",
+              "GPT-2 / Llama-2 generator",
+              "Train property predictor from labeled data"
+            ]
+          ],
+          [
+            "02 | RL optimization loop",
+            [
+              "Generate polymer candidates",
+              "Property predictor scores permeability / selectivity",
+              "Multi-objective reward",
+              "Update generator policy"
+            ]
+          ],
+          [
+            "03 | Candidate validation",
+            [
+              "Select promising gas-separation polymers",
+              "Molecular-dynamics evaluation",
+              "Compare predicted and simulated performance"
+            ]
+          ]
+        ],
+        "notes": [
+          "Design loop uses surrogate rewards; simulation validates selected candidates",
+          "High-level source: RSC abstract and author code documentation",
+          "Local paper PDF unavailable"
+        ],
+        "layout": "Property predictor is a separate branch from labeled data. Generator -> candidates -> predictor -> reward -> generator forms RL loop. MD belongs after candidate selection, not inside every token-generation step."
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "polytao",
+      "model": "PolyTAO",
+      "image": "PolyTAO.png",
+      "status": "reused_existing",
+      "generation_method": "reused_from_PolymerGeneration",
+      "source": {
+        "paper_title": "On-demand reverse design of polymers with PolyTAO",
+        "paper_url": "https://www.nature.com/articles/s41524-024-01466-5",
+        "local_pdf_filename": "PolyTAO.pdf",
+        "pdf_page_numbers": [
+          3,
+          7,
+          8
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "复用 PolymerGeneration 中的原图，不重新生成。",
+      "content_spec": null,
+      "visual_review_status": "reviewed",
+      "reuse_source_filename": "PolymerGeneration/research_output/figures/PolyTAO.png"
+    },
+    {
+      "id": "demodiff",
+      "model": "DemoDiff",
+      "image": "DemoDiff.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "Graph Diffusion Transformers are In-Context Molecular Designers",
+        "paper_url": "https://arxiv.org/abs/2510.08744",
+        "local_pdf_filename": "DemoDiff_2025_preprint.pdf",
+        "pdf_page_numbers": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "molecule-score demonstrations 是 context，noisy target motif graph 是另一输入；NPE motif tokenizer 和 Graph DiT 反向扩散；任务适应靠 context 而不是新任务微调。",
+      "content_spec": {
+        "title": "DemoDiff",
+        "subtitle": "Demonstration-conditioned graph diffusion for in-context molecular design",
+        "panels": [
+          [
+            "01 | Task context",
+            [
+              "Molecule-score demonstrations",
+              "Positive + medium + negative examples",
+              "Node Pair Encoding motif tokenizer",
+              "Score-based positional signals"
+            ]
+          ],
+          [
+            "02 | Conditional diffusion",
+            [
+              "Noisy target motif graph + timestep",
+              "Graph Diffusion Transformer",
+              "Attend to demonstration context",
+              "Predict clean motif graph",
+              "Iterative reverse diffusion"
+            ]
+          ],
+          [
+            "03 | New-task design",
+            [
+              "Decoded molecular / polymer graph",
+              "Validity checks",
+              "Target-property oracle evaluation"
+            ]
+          ]
+        ],
+        "notes": [
+          "Context examples define the task; no new-task fine-tuning is required",
+          "Pretraining learns denoising across drug and materials tasks",
+          "Property-oracle scores are computational evaluation"
+        ],
+        "layout": "Demonstration context connects as a condition to the denoiser. A separate noise target goes through iterative denoising. Draw the loop only around diffusion steps; do not generate the context examples as outputs."
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "comole",
+      "model": "CoMole",
+      "image": "CoMole.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "Controllable Molecular Generative Foundation Models",
+        "paper_url": "https://arxiv.org/abs/2605.15354",
+        "local_pdf_filename": "CoMole_2026_preprint.pdf",
+        "pdf_page_numbers": [
+          3,
+          4,
+          5,
+          13,
+          14
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "pretraining、SFT、motif-aware PPO 三阶段；task identity 与目标值条件化；property-oracle 终态 reward 反馈策略。",
+      "content_spec": {
+        "title": "CoMole",
+        "subtitle": "Motif-aware graph diffusion with controllable RL post-training",
+        "panels": [
+          [
+            "01 | Structural pretraining",
+            [
+              "Real polymer / molecular graphs",
+              "Motif-aware tokenizer",
+              "Unconditional graph diffusion pretraining",
+              "Learn structural prior"
+            ]
+          ],
+          [
+            "02 | Conditioned adaptation",
+            [
+              "Task identity + target value",
+              "Conditioned denoiser",
+              "Supervised fine-tuning",
+              "Motif-aware PPO post-training",
+              "Terminal property-oracle reward"
+            ]
+          ],
+          [
+            "03 | Inverse design",
+            [
+              "Random motif-graph state",
+              "Conditioned reverse diffusion",
+              "Motif / bond / attachment-position predictions",
+              "Decode molecular or polymer graph"
+            ]
+          ]
+        ],
+        "notes": [
+          "Training sequence: pretraining -> SFT -> reinforcement learning",
+          "PPO optimizes chemically meaningful motif-level decisions",
+          "Oracle reward guides control; experimental synthesis is not shown"
+        ],
+        "layout": "Show training phases sequentially. In the RL phase draw generated graphs -> property oracle -> reward -> policy update as a separate feedback loop. Sampling starts from noise with task identity and desired property condition."
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "polybart",
+      "model": "polyBART",
+      "image": "polyBART.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "polyBART: A Chemical Linguist for Polymer Property Prediction and Generative Design",
+        "paper_url": "https://aclanthology.org/2025.findings-emnlp.647/",
+        "local_pdf_filename": "polyBART_2025_published.pdf",
+        "pdf_page_numbers": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "性质分支为 encoder embeddings -> GPR，设计分支为 reference embeddings + Gaussian noise -> decoder -> 筛选；不画成属性提示直接条件生成。",
+      "content_spec": {
+        "title": "polyBART",
+        "subtitle": "PSELFIES encoder-decoder for fingerprints and latent-space polymer design",
+        "panels": [
+          [
+            "01 | Polymer language adaptation",
+            [
+              "PSMILES -> MSMILES -> PSELFIES",
+              "SELFIES-TED encoder-decoder initialization",
+              "Masked / corrupted input reconstruction",
+              "polyBART encoder embeddings"
+            ]
+          ],
+          [
+            "02 | Property prediction",
+            [
+              "Polymer embedding",
+              "Gaussian Process Regressor",
+              "Predicted polymer property"
+            ]
+          ],
+          [
+            "03 | Generative design",
+            [
+              "Reference polymer embedding",
+              "Add Gaussian noise",
+              "polyBART autoregressive decoder",
+              "Candidate polymer structure",
+              "Validity / property / synthesizability filters"
+            ]
+          ]
+        ],
+        "notes": [
+          "Prediction uses GPR on learned embeddings",
+          "Generation perturbs latent embeddings; it is not a property-prompt T5 pipeline",
+          "Selected candidate synthesis is downstream validation"
+        ],
+        "layout": "Share the pretrained encoder between two downstream branches. Prediction branch goes to GPR; design branch perturbs the embedding before decoding. Do not add a diffusion model or property-conditioned decoder absent from the source."
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "polyt5",
+      "model": "POLYT5",
+      "image": "POLYT5.png",
+      "status": "reused_existing",
+      "generation_method": "reused_from_PolymerGeneration",
+      "source": {
+        "paper_title": "POLYT5: an encoder-decoder foundation chemical language model for generative polymer design",
+        "paper_url": "https://www.nature.com/articles/s44387-026-00087-1",
+        "local_pdf_filename": "POLYT5.pdf",
+        "pdf_page_numbers": [
+          2,
+          3,
+          8,
+          9
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "复用 PolymerGeneration 中的原图，不重新生成。",
+      "content_spec": null,
+      "visual_review_status": "reviewed",
+      "reuse_source_filename": "PolymerGeneration/research_output/figures/POLYT5.png"
+    },
+    {
+      "id": "polyconfm",
+      "model": "PolyConFM",
+      "image": "PolyConFM.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "Unifying Polymer Modeling and Design via a Conformation-Centric Generative Foundation Model",
+        "paper_url": "https://arxiv.org/abs/2510.16023",
+        "local_pdf_filename": "PolyConFM_2025_preprint.pdf",
+        "pdf_page_numbers": [
+          3,
+          4,
+          11,
+          12,
+          13,
+          14
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "先按 graph condition 生成局部 repeating-unit conformations，再生成 rotation transformations 并组装整链；下游性质建模与 graph diffusion 设计共享构象生成/筛选流程。",
+      "content_spec": {
+        "title": "PolyConFM",
+        "subtitle": "Conformation-centric generative pretraining for linear polymer modeling and design",
+        "panels": [
+          [
+            "01 | Two-phase conformation generation",
+            [
+              "Polymer graph condition",
+              "Masked autoregressive local-conformation modeling",
+              "Generate repeat-unit conformations",
+              "Generate rotation transformations",
+              "Assemble full polymer conformation"
+            ]
+          ],
+          [
+            "02 | Property modeling",
+            [
+              "Generated full-chain conformation",
+              "Structure-aware embedding",
+              "Property prediction head"
+            ]
+          ],
+          [
+            "03 | Polymer design",
+            [
+              "Target property condition",
+              "Graph-based diffusion design module",
+              "Candidate polymer graph",
+              "Conformation generation and property screening"
+            ]
+          ]
+        ],
+        "notes": [
+          "Representation decomposes a chain into overlapping repeat-unit frames",
+          "Training phase 2 uses ground-truth local conformations",
+          "Inference generates local conformations before orientations"
+        ],
+        "layout": "Distinguish the two phases of conformation pretraining from two downstream tasks. Show design graph candidates feeding the shared conformation generator and then property screening. Do not depict a graph diffusion model as the local-coordinate encoder itself."
+      },
+      "visual_review_status": "reviewed"
+    },
+    {
+      "id": "llamole",
+      "model": "Llamole",
+      "image": "Llamole.png",
+      "status": "new_generation",
+      "generation_method": "image_gen_builtin",
+      "source": {
+        "paper_title": "Multimodal Large Language Models for Inverse Molecular Design with Retrosynthetic Planning",
+        "paper_url": "https://arxiv.org/abs/2410.04223",
+        "local_pdf_filename": "Llamole_2025_conference_author_copy.pdf",
+        "pdf_page_numbers": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "evidence_level": "local_primary_paper"
+      },
+      "architecture_review_zh": "<design> 和 <retro> 各自路由到 Graph DiT 与 reaction predictor；<query> 条件、graph encoder 反馈和 A* AND-OR planning；不是三个图模块串行。",
+      "content_spec": {
+        "title": "Llamole",
+        "subtitle": "Interleaved text and graph generation with retrosynthetic planning",
+        "panels": [
+          [
+            "01 | Language controller",
+            [
+              "Natural-language design requirements",
+              "Base LLM",
+              "<design> / <retro> trigger tokens",
+              "<query> condition vector"
+            ]
+          ],
+          [
+            "02 | Graph modules",
+            [
+              "Graph DiT -> designed molecular graph",
+              "Graph encoder -> molecular understanding",
+              "GNN reaction predictor -> one-step reactants"
+            ]
+          ],
+          [
+            "03 | Planning and response",
+            [
+              "A* search on AND-OR reaction tree",
+              "Selection + expansion",
+              "Check available reactants",
+              "Interleaved text / molecule / synthesis-route output"
+            ]
+          ]
+        ],
+        "notes": [
+          "LLM query vectors condition graph generation and reaction prediction",
+          "Graph encodings feed back to the language model",
+          "Includes polymer design benchmarks; not proof of polymer-specific synthesis"
+        ],
+        "layout": "LLM controller routes <design> to Graph DiT, <retro> to reaction predictor. The graph encoder returns graph information to LLM. Route reaction predictions into A* planning. Use separate labeled module arrows, not a serial graph-module chain."
+      },
+      "visual_review_status": "reviewed"
+    }
+  ]
+}

@@ -37,6 +37,8 @@ def resources(model):
     links.append(f"[{label}]({r['code_url']})" if r["code_url"] else label)
     if r["model_url"]:
         links.append(f"[模型]({r['model_url']})")
+    if (ROOT / "figures" / f"{model['name']}.png").is_file():
+        links.append(f"[架构图](figures/{model['name']}.png)")
     return " · ".join(links)
 
 
@@ -62,11 +64,11 @@ def render():
         "聚合物领域代表性 AI 模型索引：以用户提供的 Table 1 图片为初始范围，补充论文、作者代码与模型发布入口。"
         "本版收录 **%d 个模型**，按原图的主要下游能力分组。\n" % len(models),
         f"**最近核查：{data['checked_on']}** · [JSON](data/models.json) · [CSV](data/models.csv) · "
-        "[原图字段与核查记录](docs/verification.md) · [贡献指南](CONTRIBUTING.md)\n",
+        "[原图字段与核查记录](docs/verification.md) · [架构图集](figures/README.md) · [贡献指南](CONTRIBUTING.md)\n",
         "覆盖：性质预测 **%d** 个，逆向设计 **%d** 个，预测与设计统一 **%d** 个。\n" % tuple(counts[k] for k in CATEGORIES),
         "## 导航\n",
         "- [性质预测](#property-prediction)\n- [逆向设计](#inverse-design)\n- [预测与设计统一](#unified-prediction-design)\n"
-        "- [逐项文献与备注](#model-notes)\n- [读表说明](#reading-guide)\n",
+        "- [逐项文献与备注](#model-notes)\n- [读表说明](#reading-guide)\n- [22 个模型的架构图](figures/README.md)\n",
         '<a id="reading-guide"></a>\n\n## 读表说明\n',
         "**年份、应用证据、模态、架构与预训练方法沿用原图**；它们不是本仓库对每篇全文的独立审计结论。"
         "已核查的差异和补充信息放在条目备注与 [核查记录](docs/verification.md)，原始值另存于 JSON 的 `source_table`。\n",

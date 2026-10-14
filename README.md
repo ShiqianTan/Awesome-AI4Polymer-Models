@@ -4,7 +4,7 @@
 
 聚合物领域代表性 AI 模型索引：以用户提供的 Table 1 图片为初始范围，补充论文、作者代码与模型发布入口。本版收录 **22 个模型**，按原图的主要下游能力分组。
 
-**最近核查：2026-10-14** · [JSON](data/models.json) · [CSV](data/models.csv) · [原图字段与核查记录](docs/verification.md) · [贡献指南](CONTRIBUTING.md)
+**最近核查：2026-10-14** · [JSON](data/models.json) · [CSV](data/models.csv) · [原图字段与核查记录](docs/verification.md) · [架构图集](figures/README.md) · [贡献指南](CONTRIBUTING.md)
 
 覆盖：性质预测 **14** 个，逆向设计 **4** 个，预测与设计统一 **4** 个。
 
@@ -15,6 +15,7 @@
 - [预测与设计统一](#unified-prediction-design)
 - [逐项文献与备注](#model-notes)
 - [读表说明](#reading-guide)
+- [22 个模型的架构图](figures/README.md)
 
 <a id="reading-guide"></a>
 
@@ -34,20 +35,20 @@
 
 | 模型 | 年份 | 应用 [证据] | 模态 | 架构（原图） | 方法（原图） | 资源 |
 | --- | --- | --- | --- | --- | --- | --- |
-| [polyBERT](#polybert) | 2023 | Multidomain prediction [B] | Sequence | DeBERTa | GL | [论文](https://www.nature.com/articles/s41467-023-39868-6) · [作者代码](https://github.com/Ramprasad-Group/polyBERT) · [模型](https://huggingface.co/kuelumbus/polyBERT) |
-| [TransPolymer](#transpolymer) | 2023 | Multidomain prediction [B] | Sequence | RoBERTa | GL | [论文](https://arxiv.org/abs/2209.01307) · [作者代码](https://github.com/ChangwenXu98/TransPolymer) · [模型](https://huggingface.co/ChangwenXu/TransPolymer) |
-| [SML-MT](#sml-mt) | 2023 | Electronic and optical prediction [B] | Sequence | BERT | GL | [论文](https://arxiv.org/abs/2310.16958) · 代码未定位 |
-| [SPG-TED289M](#spg-ted289m) | 2024 | Thermal, optical, membrane, and electrolyte prediction [B] | Sequence | BERT | GL | [论文](https://research.ibm.com/publications/a-large-encoder-decoder-polymer-based-foundation-model) · 代码未定位 |
-| [PolyCL](#polycl) | 2025 | Electronic and optical prediction [B] | Sequence | DeBERTa | CL | [论文](https://pubs.rsc.org/en/content/articlelanding/2025/dd/d4dd00236a) · [作者代码](https://github.com/JiajunZhou96/PolyCL) |
-| [Trinity](#trinity) | 2025 | Flammability prediction [B] | Sequence | MoLFormer | — | [论文](https://www.nature.com/articles/s43588-025-00768-y) · [作者代码](https://github.com/ningliu-iga/TrinityLLM) |
-| [MHG-GNN](#mhg-gnn) | 2023 | Multidomain prediction [B] | Graph | GIN, MHG | GL | [论文](https://arxiv.org/abs/2309.16374) · [相关作者实现](https://github.com/IBM/materials) · [模型](https://huggingface.co/ibm-research/materials.mhg-ged) |
-| [Polymer-JEPA](#polymer-jepa) | 2026 | Electron-affinity and phase prediction [B] | Graph | JEPA | PL | [论文](https://pubs.rsc.org/en/content/articlelanding/2026/dd/d5dd00308c) · [作者代码](https://github.com/Intelligent-molecular-systems/Polymer-JEPA) |
-| [MMPolymer](#mmpolymer) | 2024 | Multidomain prediction [B] | Sequence, 3D | RoBERTa, SE(3)-Transformer | GL, CL, denoising | [论文](https://arxiv.org/abs/2406.04727) · [作者代码](https://github.com/FanmengWang/MMPolymer) |
-| [PolyNC](#polync) | 2024 | Property prediction [B]; Tg validation [E] | Sequence, Text | Text+Chem T5 | — | [论文](https://pubs.rsc.org/en/content/articlelanding/2024/sc/d3sc05079c) · [作者代码](https://github.com/HKQiu/Unified_ML4Polymers) · [模型](https://huggingface.co/hkqiu/PolyNC) |
-| [MIPS](#mips) | 2025 | Multidomain prediction [B] | Graph, 3D | Graphormer | GL, multimodal learning | [论文](https://arxiv.org/abs/2507.20326) · [作者代码](https://github.com/wjxts/MIPS) |
-| [PolyLLMem](#polyllmem) | 2025 | Multidomain prediction [B] | Sequence, Text, 3D | Llama, Uni-Mol | — | [论文](https://arxiv.org/abs/2503.22962) · [作者链接（内容待核实）](https://github.com/zhangtr10/PolyLLMem) |
-| [STR-Bamba](#str-bamba) | 2025 | Multidomain prediction [B] | Sequence, Text | Bamba | GL, PL | [论文](https://openreview.net/pdf?id=0uWNuJ1xtz) · [作者代码](https://github.com/IBM/materials/tree/main/models/str_bamba) · [模型](https://huggingface.co/ibm-research/materials.str-bamba) |
-| [Uni-Poly](#uni-poly) | 2025 | Thermal, density, and resistivity prediction [B] | Sequence, Text, Graph, 3D | ChemBERTa, GIN, Text+Chem T5, SchNet | Multimodal learning | [论文](https://www.nature.com/articles/s41524-025-01652-z) · [作者链接（访问失败）](https://github.com/huang-qi/Uni-Poly) |
+| [polyBERT](#polybert) | 2023 | Multidomain prediction [B] | Sequence | DeBERTa | GL | [论文](https://www.nature.com/articles/s41467-023-39868-6) · [作者代码](https://github.com/Ramprasad-Group/polyBERT) · [模型](https://huggingface.co/kuelumbus/polyBERT) · [架构图](figures/polyBERT.png) |
+| [TransPolymer](#transpolymer) | 2023 | Multidomain prediction [B] | Sequence | RoBERTa | GL | [论文](https://arxiv.org/abs/2209.01307) · [作者代码](https://github.com/ChangwenXu98/TransPolymer) · [模型](https://huggingface.co/ChangwenXu/TransPolymer) · [架构图](figures/TransPolymer.png) |
+| [SML-MT](#sml-mt) | 2023 | Electronic and optical prediction [B] | Sequence | BERT | GL | [论文](https://arxiv.org/abs/2310.16958) · 代码未定位 · [架构图](figures/SML-MT.png) |
+| [SPG-TED289M](#spg-ted289m) | 2024 | Thermal, optical, membrane, and electrolyte prediction [B] | Sequence | BERT | GL | [论文](https://research.ibm.com/publications/a-large-encoder-decoder-polymer-based-foundation-model) · 代码未定位 · [架构图](figures/SPG-TED289M.png) |
+| [PolyCL](#polycl) | 2025 | Electronic and optical prediction [B] | Sequence | DeBERTa | CL | [论文](https://pubs.rsc.org/en/content/articlelanding/2025/dd/d4dd00236a) · [作者代码](https://github.com/JiajunZhou96/PolyCL) · [架构图](figures/PolyCL.png) |
+| [Trinity](#trinity) | 2025 | Flammability prediction [B] | Sequence | MoLFormer | — | [论文](https://www.nature.com/articles/s43588-025-00768-y) · [作者代码](https://github.com/ningliu-iga/TrinityLLM) · [架构图](figures/Trinity.png) |
+| [MHG-GNN](#mhg-gnn) | 2023 | Multidomain prediction [B] | Graph | GIN, MHG | GL | [论文](https://arxiv.org/abs/2309.16374) · [相关作者实现](https://github.com/IBM/materials) · [模型](https://huggingface.co/ibm-research/materials.mhg-ged) · [架构图](figures/MHG-GNN.png) |
+| [Polymer-JEPA](#polymer-jepa) | 2026 | Electron-affinity and phase prediction [B] | Graph | JEPA | PL | [论文](https://pubs.rsc.org/en/content/articlelanding/2026/dd/d5dd00308c) · [作者代码](https://github.com/Intelligent-molecular-systems/Polymer-JEPA) · [架构图](figures/Polymer-JEPA.png) |
+| [MMPolymer](#mmpolymer) | 2024 | Multidomain prediction [B] | Sequence, 3D | RoBERTa, SE(3)-Transformer | GL, CL, denoising | [论文](https://arxiv.org/abs/2406.04727) · [作者代码](https://github.com/FanmengWang/MMPolymer) · [架构图](figures/MMPolymer.png) |
+| [PolyNC](#polync) | 2024 | Property prediction [B]; Tg validation [E] | Sequence, Text | Text+Chem T5 | — | [论文](https://pubs.rsc.org/en/content/articlelanding/2024/sc/d3sc05079c) · [作者代码](https://github.com/HKQiu/Unified_ML4Polymers) · [模型](https://huggingface.co/hkqiu/PolyNC) · [架构图](figures/PolyNC.png) |
+| [MIPS](#mips) | 2025 | Multidomain prediction [B] | Graph, 3D | Graphormer | GL, multimodal learning | [论文](https://arxiv.org/abs/2507.20326) · [作者代码](https://github.com/wjxts/MIPS) · [架构图](figures/MIPS.png) |
+| [PolyLLMem](#polyllmem) | 2025 | Multidomain prediction [B] | Sequence, Text, 3D | Llama, Uni-Mol | — | [论文](https://arxiv.org/abs/2503.22962) · [作者链接（内容待核实）](https://github.com/zhangtr10/PolyLLMem) · [架构图](figures/PolyLLMem.png) |
+| [STR-Bamba](#str-bamba) | 2025 | Multidomain prediction [B] | Sequence, Text | Bamba | GL, PL | [论文](https://openreview.net/pdf?id=0uWNuJ1xtz) · [作者代码](https://github.com/IBM/materials/tree/main/models/str_bamba) · [模型](https://huggingface.co/ibm-research/materials.str-bamba) · [架构图](figures/STR-Bamba.png) |
+| [Uni-Poly](#uni-poly) | 2025 | Thermal, density, and resistivity prediction [B] | Sequence, Text, Graph, 3D | ChemBERTa, GIN, Text+Chem T5, SchNet | Multimodal learning | [论文](https://www.nature.com/articles/s41524-025-01652-z) · [作者链接（访问失败）](https://github.com/huang-qi/Uni-Poly) · [架构图](figures/Uni-Poly.png) |
 
 
 
@@ -57,10 +58,10 @@
 
 | 模型 | 年份 | 应用 [证据] | 模态 | 架构（原图） | 方法（原图） | 资源 |
 | --- | --- | --- | --- | --- | --- | --- |
-| [PolyRL](#polyrl) | 2026 | Gas-separation design [S, Sim] | Sequence | GPT-2, Llama-2 | GL | [论文](https://pubs.rsc.org/en/content/articlelanding/2026/dd/d5dd00272a) · [作者代码](https://github.com/Knitua/PolyRL) |
-| [PolyTAO](#polytao) | 2024 | Property-conditioned generation [S] | Sequence, Text | Text+Chem T5 | GL (structure-property) | [论文](https://www.nature.com/articles/s41524-024-01466-5) · [作者代码](https://github.com/hkqiu/PolymerGenerationPretrainedModel) · [模型](https://huggingface.co/hkqiu/PolymerGenerationPretrainedModel) |
-| [DemoDiff](#demodiff) | 2025 | In-context design [S] | Graph | GraphDiT | GL (task-context) | [论文](https://arxiv.org/abs/2510.08744) · [作者代码](https://github.com/liugangcode/DemoDiff) · [模型](https://huggingface.co/liuganghuggingface/DemoDiff-0.7B) |
-| [CoMole](#comole) | 2026 | Property-conditioned generation [S] | Graph | GraphDiT | Denoising | [论文](https://arxiv.org/abs/2605.15354) · 代码未定位 |
+| [PolyRL](#polyrl) | 2026 | Gas-separation design [S, Sim] | Sequence | GPT-2, Llama-2 | GL | [论文](https://pubs.rsc.org/en/content/articlelanding/2026/dd/d5dd00272a) · [作者代码](https://github.com/Knitua/PolyRL) · [架构图](figures/PolyRL.png) |
+| [PolyTAO](#polytao) | 2024 | Property-conditioned generation [S] | Sequence, Text | Text+Chem T5 | GL (structure-property) | [论文](https://www.nature.com/articles/s41524-024-01466-5) · [作者代码](https://github.com/hkqiu/PolymerGenerationPretrainedModel) · [模型](https://huggingface.co/hkqiu/PolymerGenerationPretrainedModel) · [架构图](figures/PolyTAO.png) |
+| [DemoDiff](#demodiff) | 2025 | In-context design [S] | Graph | GraphDiT | GL (task-context) | [论文](https://arxiv.org/abs/2510.08744) · [作者代码](https://github.com/liugangcode/DemoDiff) · [模型](https://huggingface.co/liuganghuggingface/DemoDiff-0.7B) · [架构图](figures/DemoDiff.png) |
+| [CoMole](#comole) | 2026 | Property-conditioned generation [S] | Graph | GraphDiT | Denoising | [论文](https://arxiv.org/abs/2605.15354) · 代码未定位 · [架构图](figures/CoMole.png) |
 
 
 
@@ -70,10 +71,10 @@
 
 | 模型 | 年份 | 应用 [证据] | 模态 | 架构（原图） | 方法（原图） | 资源 |
 | --- | --- | --- | --- | --- | --- | --- |
-| [polyBART](#polybart) | 2025 | Property prediction [B]; inverse design [S, E] | Sequence | SELFIES-TED | Denoising | [论文](https://aclanthology.org/2025.findings-emnlp.647/) · 代码未定位 |
-| [POLYT5](#polyt5) | 2026 | Property prediction [B]; dielectric design [S, Sim, E] | Sequence | T5 | GL | [论文](https://www.nature.com/articles/s44387-026-00087-1) · 代码未定位 |
-| [PolyConFM](#polyconfm) | 2025 | Property prediction [B]; conformation generation [B]; polymer design [S] | Sequence, 3D | MolCLR, Uni-Mol, GraphDiT | GL | [论文](https://arxiv.org/abs/2510.16023) · [作者代码](https://github.com/FanmengWang/PolyConFM) |
-| [Llamole](#llamole) | 2025 | Molecular design [S]; retrosynthesis [B] | Text, Graph | GraphDiT, GNN | Denoising, CL, reaction-template supervision | [论文](https://arxiv.org/abs/2410.04223) · [作者代码](https://github.com/liugangcode/Llamole) |
+| [polyBART](#polybart) | 2025 | Property prediction [B]; inverse design [S, E] | Sequence | SELFIES-TED | Denoising | [论文](https://aclanthology.org/2025.findings-emnlp.647/) · 代码未定位 · [架构图](figures/polyBART.png) |
+| [POLYT5](#polyt5) | 2026 | Property prediction [B]; dielectric design [S, Sim, E] | Sequence | T5 | GL | [论文](https://www.nature.com/articles/s44387-026-00087-1) · 代码未定位 · [架构图](figures/POLYT5.png) |
+| [PolyConFM](#polyconfm) | 2025 | Property prediction [B]; conformation generation [B]; polymer design [S] | Sequence, 3D | MolCLR, Uni-Mol, GraphDiT | GL | [论文](https://arxiv.org/abs/2510.16023) · [作者代码](https://github.com/FanmengWang/PolyConFM) · [架构图](figures/PolyConFM.png) |
+| [Llamole](#llamole) | 2025 | Molecular design [S]; retrosynthesis [B] | Text, Graph | GraphDiT, GNN | Denoising, CL, reaction-template supervision | [论文](https://arxiv.org/abs/2410.04223) · [作者代码](https://github.com/liugangcode/Llamole) · [架构图](figures/Llamole.png) |
 
 
 
